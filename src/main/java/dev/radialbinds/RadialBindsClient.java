@@ -14,7 +14,7 @@ public class RadialBindsClient implements ClientModInitializer {
     private static KeyBinding openKey;
     private static boolean wasDown;
     @Override public void onInitializeClient() {
-        openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.radialbinds.open", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_MIDDLE, KeyBinding.Category.MISC));
+        openKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.radialbinds.open", InputUtil.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_MIDDLE, "misc"));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null || client.world == null) return;
             boolean down = GLFW.glfwGetMouseButton(client.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_MIDDLE) == GLFW.GLFW_PRESS;
