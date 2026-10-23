@@ -11,8 +11,8 @@ import org.lwjgl.glfw.GLFW;
 import java.util.*;
 
 public class RadialScreen extends Screen {
-    private static final List<String> PLAYER_BINDS = new ArrayList<>();
-    private static final List<String> SELF_BINDS = new ArrayList<>();
+    static final List<String> PLAYER_BINDS = new ArrayList<>();
+    static final List<String> SELF_BINDS = new ArrayList<>();
     private static boolean playerMode = true;
     private final Entity target;
     private String selected = null;
