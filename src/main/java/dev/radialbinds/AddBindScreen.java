@@ -7,10 +7,40 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 
 public class AddBindScreen extends Screen {
-    private final RadialScreen parent; private final boolean playerMode; private TextFieldWidget field;
-    protected AddBindScreen(RadialScreen parent, boolean playerMode){super(Text.literal("Добавить бинд"));this.parent=parent;this.playerMode=playerMode;}
-    @Override protected void init(){field=new TextFieldWidget(textRenderer,width/2-110,height/2-12,220,24,Text.literal("Команда"));field.setMaxLength(100);field.setPlaceholder(Text.literal("Например: /report "));addDrawableChild(field);
-        addDrawableChild(ButtonWidget.builder(Text.literal("Добавить"),b->{String s=field.getText().trim();if(!s.isEmpty()){if(playerMode)RadialScreen.PLACEHOLDER();} }).dimensions(width/2-50,height/2+25,100,20).build());
-        addDrawableChild(ButtonWidget.builder(Text.literal("Назад"),b->client.setScreen(parent)).dimensions(width/2-50,height/2+52,100,20).build());}
-    @Override public void render(DrawContext ctx,int x,int y,float d){renderBackground(ctx,x,y,d);ctx.drawCenteredTextWithShadow(textRenderer,"Введи команду (без ника игрока)",width/2,height/2-42,0xFFFFFFFF);super.render(ctx,x,y,d);}
+    private final RadialScreen parent;
+    private final boolean playerMode;
+    private TextFieldWidget field;
+
+    protected AddBindScreen(RadialScreen parent, boolean playerMode) {
+        super(Text.literal("Добавить бинд"));
+        this.parent = parent;
+        this.playerMode = playerMode;
+    }
+
+    @Override
+    protected void init() {
+        field = new TextFieldWidget(textRenderer, width / 2 - 110, height / 2 - 12, 220, 24, Text.literal("Команда"));
+        field.setMaxLength(100);
+        field.setPlaceholder(Text.literal("Например: /report"));
+        addDrawableChild(field);
+        addDrawableChild(ButtonWidget.builder(Text.literal("Добавить"), b -> {
+            String command = field.getText().trim();
+            if (!command.isEmpty()) {
+                if (playerMode) RadialScreen.PLAYER_BINDS.add(command);
+                else RadialScreen.SELF_BINDS.add(command);
+                client.setScreen(parent);
+            }
+        }).dimensions(width / 2 - 50, height / 2 + 25, 100, 20).build());
+        addDrawableChild(ButtonWidget.builder(Text.literal("Назад"), b -> client.setScreen(parent))
+                .dimensions(width / 2 - 50, height / 2 + 52, 100, 20).build());
+    }
+
+    @Override
+    public void render(DrawContext ctx, int x, int y, float d) {
+        renderBackground(ctx, x, y, d);
+        ctx.drawCenteredTextWithShadow(textRenderer, "Введи команду (без ника игрока)", width / 2, height / 2 - 42, 0xFFFFFFFF);
+        super.render(ctx, x, y, d);
+    }
+
+    @Override public boolean shouldPause() { return false; }
 }
