@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "radialbinds",
+  "version": "${version}",
+  "name": "Radial Binds",
+  "description": "A radial command menu for player and self binds.",
+  "authors": ["RadialBinds"],
+  "environment": "client",
+  "entrypoints": { "client": ["dev.radialbinds.RadialBindsClient"] },
+  "depends": { "fabricloader": ">=0.16.0", "minecraft": "~1.21.4", "java": ">=21", "fabric-api": "*" }
+}
